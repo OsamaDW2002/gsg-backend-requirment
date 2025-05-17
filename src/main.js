@@ -1,4 +1,6 @@
+import axios from 'axios';
 import './style.css';
+
 const app = document.querySelector('#app');
 
 app.innerHTML = `
@@ -23,17 +25,19 @@ axios.get('https://dummyjson.com/quotes')
         errorMessage.textContent = 'Failed to load quotes: ' + error.message;
     });
 
-const  displayQuotes = (list)=> {
+const displayQuotes = (list) => {
     quoteList.innerHTML = '';
     list.forEach((quote) => {
         const li = document.createElement('li');
         li.textContent = quote.quote;
         quoteList.appendChild(li);
     });
-}
+};
 
 searchInput.addEventListener('input', () => {
     const term = searchInput.value.toLowerCase();
-    const filtered = quotes.filter((q) => q.quote.toLowerCase().includes(term));
+    const filtered = quotes.filter((q) =>
+        q.quote.toLowerCase().includes(term)
+    );
     displayQuotes(filtered);
 });
